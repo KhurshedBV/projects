@@ -27,23 +27,8 @@ This report details our machine learning system for predicting parking availabil
   - #### We evaluated multiple regression algorithms to identify the best performer:
    ```python
         models = {
-            'Linear Regression': LinearRegression(),
             'Random Forest': RandomForestRegressor(random_state=42),
-            'Gradient Boosting': GradientBoostingRegressor(random_state=42),
-            'XGBoost': XGBRegressor(random_state=42)
         }
-
-        # Evaluate all models
-        results = {}
-        for name, model in models.items():
-            results[name] = evaluate_model(model, X_train, X_test, y_train, y_test)
-
-        # Display results
-        model_comparison = pd.DataFrame({
-            'Model': list(results.keys()),
-            'RMSE': [results[model]['RMSE'] for model in results],
-            'R2': [results[model]['R2'] for model in results]
-        })
         ```
 
 ## 4. Model Training
@@ -51,12 +36,15 @@ This report details our machine learning system for predicting parking availabil
   - We split our data into training (80%) and testing (20%) sets:
   ```python
     python# Define X (features) and y (target)
-    X = df[features]
-    y = df['Available_Spots']
-
-    # Split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    # Time-based split (80% train, 20% test)
+    split_idx = int(len(df) * 0.8)
+    train_df = df.iloc[:split_idx]
+    test_df = df.iloc[split_idx:]
+    
+    X_train = train_df[features]
+    y_train = train_df['Available_Spots']
+    X_test = test_df[features]
+    y_test = test_df['Available_Spots']
     )
     ```
 - ### 4.2 Model Evaluation
