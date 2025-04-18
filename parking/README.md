@@ -48,8 +48,7 @@ This report details our machine learning system for predicting parking availabil
     )
     ```
 - ### 4.2 Model Evaluation
-    1) RMSE: 5-8 parking spots
-    2) R²: 0.85-0.90 (explaining 85-90% of variance)
+   Random Forest - RMSE: 33.97, R²: 0.86
 
 
 ## 5. Prediction System
